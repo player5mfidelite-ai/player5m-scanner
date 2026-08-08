@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0b0b">
+  <title>Scanner QR - Player 5M</title>
+
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 18px;
+      background: #0b0b0b;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
+
+    .box {
+      width: 100%;
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 24px 18px 30px;
+      background: #1f1f1f;
+      border: 1px solid #3a3a3a;
+      border-radius: 24px;
+      box-shadow: 0 16px 45px rgba(0,0,0,.45);
+    }
+
+    .logo {
+      display: block;
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      margin: 0 auto 18px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      color: #ffcc00;
+      font-size: 34px;
+    }
+
+    .intro {
+      margin: 0 0 18px;
+      color: #ddd;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    #reader {
+      width: 100%;
+      min-height: 280px;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #111;
+      border: 1px solid #444;
+    }
+
+    #reader video {
+      border-radius: 18px;
+    }
+
+    #message {
+      min-height: 52px;
+      margin: 18px 0 0;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    .succes { color: #6dff7c; }
+    .erreur { color: #ff6b75; }
+
+    .boutons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    button, a.bouton {
+      display: block;
+      width: 100%;
+      padding: 15px 18px;
+      border: 0;
+      border-radius: 13px;
+      font-size: 19px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    #demarrer {
+      background: #1677ff;
+      color: #fff;
+    }
+
+    #arreter {
+      background: #444;
+      color: #fff;
+    }
+
+    .retour {
+      background: #ed0026;
+      color: #fff;
+    }
+
+    .manuel {
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+    }
+
+    .manuel p {
+      color: #bbb;
+      margin: 0 0 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #555;
+      border-radius: 12px;
+      background: #fff;
+      color: #111;
+      font-size: 22px;
+      text-align: center;
+      text-transform: uppercase;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #ffcc00;
+      box-shadow: 0 0 0 3px rgba(255,204,0,.2);
+    }
+
+    #validerManuel {
+      margin-top: 10px;
+      background: #ffcc00;
+      color: #111;
+    }
+
+    .petit {
+      margin-top: 14px;
+      color: #8e8e8e;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 520px) {
+      body { padding: 8px; }
+      .box { padding: 20px 14px 24px; border-radius: 18px; }
+      .logo { max-width: 270px; }
+      h1 { font-size: 29px; }
+      .intro { font-size: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <img
+      class="logo"
+      src="https://drive.google.com/thumbnail?id=1JS3QUhln9yxyWtY8fnndAciTmF_GUIFk&sz=w1000"
+      alt="Player 5M"
+    >
+
+    <h1>Scanner la carte</h1>
+
+    <p class="intro">
+      Présentez le QR Code de la carte fidélité du client devant la caméra.
+    </p>
+
+    <div id="reader"></div>
+
+    <div id="message">Ouverture de la caméra…</div>
+
+    <div class="boutons">
+      <button id="demarrer" type="button" onclick="demarrerScanner()">
+        📷 Ouvrir la caméra
+      </button>
+
+      <button id="arreter" type="button" onclick="arreterScanner()" style="display:none;">
+        Fermer la caméra
+      </button>
+
+      <a
+        class="bouton retour"
+        href="https://script.google.com/macros/s/AKfycbyZHXWM1EiMFAndTdAJtqbY0L_Hw8TH76PTFYMFbHzMHsQf3d-6l-5MND4w7z63VKI/exec?page=crediter"
+      >
+        ← Retour au crédit
+      </a>
+    </div>
+
+    <div class="manuel">
+      <p>En cas de besoin, saisissez le numéro client :</p>
+
+      <input
+        id="clientManuel"
+        type="text"
+        placeholder="CL00003"
+        autocomplete="off"
+        autocapitalize="characters"
+      >
+
+      <button id="validerManuel" type="button" onclick="validerManuellement()">
+        Continuer
+      </button>
+    </div>
+
+    <div class="petit">
+      Le navigateur peut demander l’autorisation d’utiliser la caméra lors de la première ouverture.
+    </div>
+  </div>
+
+  <script>
+    const URL_APPS_SCRIPT =
+      'https://script.google.com/macros/s/AKfycbyZHXWM1EiMFAndTdAJtqbY0L_Hw8TH76PTFYMFbHzMHsQf3d-6l-5MND4w7z63VKI/exec';
+
+    let scanner = null;
+    let scannerActif = false;
+    let lectureEnCours = false;
+
+    const message = document.getElementById('message');
+    const boutonDemarrer = document.getElementById('demarrer');
+    const boutonArreter = document.getElementById('arreter');
+    const champManuel = document.getElementById('clientManuel');
+
+    function extraireIdClient(texteQr) {
+      const texte = String(texteQr || '').trim();
+
+      if (!texte) {
+        return '';
+      }
+
+      try {
+        const adresse = new URL(texte);
+        const client = adresse.searchParams.get('client');
+
+        if (client) {
+          return client.trim().toUpperCase();
+        }
+      } catch (e) {
+        // Le QR ne contient peut-être pas une URL complète.
+      }
+
+      const correspondance = texte.toUpperCase().match(/CL\d{5}/);
+      return correspondance ? correspondance[0] : '';
+    }
+
+    function ouvrirClient(idClient) {
+      const id = String(idClient || '').trim().toUpperCase();
+
+      if (!/^CL\d{5}$/.test(id)) {
+        message.className = 'erreur';
+        message.textContent = 'Numéro client invalide.';
+        return;
+      }
+
+      message.className = 'succes';
+      message.textContent = 'Client reconnu : ' + id + '. Ouverture…';
+
+      const destination =
+        URL_APPS_SCRIPT +
+        '?page=crediter&client=' +
+        encodeURIComponent(id);
+
+      window.location.href = destination;
+    }
+
+    async function qrCodeDetecte(texteQr) {
+      if (lectureEnCours) {
+        return;
+      }
+
+      lectureEnCours = true;
+
+      const idClient = extraireIdClient(texteQr);
+
+      if (!idClient) {
+        lectureEnCours = false;
+        message.className = 'erreur';
+        message.textContent =
+          'Ce QR Code ne correspond pas à une carte Player 5M.';
+        return;
+      }
+
+      try {
+        await arreterScanner();
+      } catch (e) {}
+
+      ouvrirClient(idClient);
+    }
+
+    async function demarrerScanner() {
+      if (scannerActif) {
+        return;
+      }
+
+      if (typeof Html5Qrcode === 'undefined') {
+        message.className = 'erreur';
+        message.textContent =
+          'Le lecteur QR n’a pas pu être chargé. Vérifiez votre connexion Internet.';
+        return;
+      }
+
+      if (!window.isSecureContext) {
+        message.className = 'erreur';
+        message.innerHTML =
+          'La caméra nécessite une connexion HTTPS.<br>' +
+          'Ouvrez cette page avec une adresse commençant par https://';
+        return;
+      }
+
+      message.className = '';
+      message.textContent = 'Ouverture de la caméra…';
+
+      boutonDemarrer.disabled = true;
+
+      scanner = new Html5Qrcode('reader');
+
+      const configuration = {
+        fps: 10,
+        qrbox: function(viewfinderWidth, viewfinderHeight) {
+          const cote = Math.floor(
+            Math.min(viewfinderWidth, viewfinderHeight) * 0.72
+          );
+
+          return {
+            width: Math.max(180, cote),
+            height: Math.max(180, cote)
+          };
+        },
+        aspectRatio: 1.0
+      };
+
+      try {
+        await scanner.start(
+          { facingMode: 'environment' },
+          configuration,
+          qrCodeDetecte,
+          function() {}
+        );
+
+        scannerActif = true;
+        boutonDemarrer.style.display = 'none';
+        boutonArreter.style.display = 'block';
+
+        message.className = '';
+        message.textContent =
+          'Caméra ouverte : présentez le QR Code du client.';
+
+      } catch (erreur) {
+        scanner = null;
+        scannerActif = false;
+        boutonDemarrer.disabled = false;
+        boutonDemarrer.style.display = 'block';
+        boutonArreter.style.display = 'none';
+
+        message.className = 'erreur';
+        message.innerHTML =
+          'Impossible d’ouvrir la caméra.<br>' +
+          'Vérifiez que votre navigateur est autorisé à l’utiliser.';
+      }
+    }
+
+    async function arreterScanner() {
+      if (scanner) {
+        try {
+          if (scannerActif) {
+            await scanner.stop();
+          }
+          await scanner.clear();
+        } catch (e) {}
+      }
+
+      scanner = null;
+      scannerActif = false;
+
+      boutonDemarrer.disabled = false;
+      boutonDemarrer.style.display = 'block';
+      boutonArreter.style.display = 'none';
+    }
+
+    function validerManuellement() {
+      ouvrirClient(champManuel.value);
+    }
+
+    champManuel.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        validerManuellement();
+      }
+    });
+
+    window.addEventListener('load', function() {
+      demarrerScanner();
+    });
+
+    window.addEventListener('beforeunload', function() {
+      if (scannerActif && scanner) {
+        scanner.stop().catch(function() {});
+      }
+    });
+  </script>
+</body>
+</html>
