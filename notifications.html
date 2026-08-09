@@ -1,1 +1,123 @@
-<!-- Notifications Player 5M -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Notifications Player 5M</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .bloc {
+      width: 90%;
+      max-width: 420px;
+      padding: 30px 20px;
+      background: #1d1d1d;
+      border-radius: 20px;
+    }
+
+    h1 {
+      color: #ffcc00;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 16px;
+      border: 0;
+      border-radius: 12px;
+      background: #e30620;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #message {
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bloc">
+
+    <h1>🔔 PLAYER 5M</h1>
+
+    <p>
+      Activez les notifications pour être informé
+      des nouveaux événements Player 5M.
+    </p>
+
+    <button onclick="activerNotifications()">
+      🔔 Activer les notifications
+    </button>
+
+    <div id="message"></div>
+
+  </div>
+
+  <script>
+
+    async function activerNotifications() {
+
+      const message = document.getElementById('message');
+
+      if (!('serviceWorker' in navigator)) {
+        message.innerHTML =
+          '❌ Les notifications ne sont pas compatibles avec ce navigateur.';
+        return;
+      }
+
+      try {
+
+        const inscription =
+          await navigator.serviceWorker.register('./service-worker.js');
+
+        const autorisation =
+          await Notification.requestPermission();
+
+        if (autorisation !== 'granted') {
+          message.innerHTML =
+            '❌ Les notifications n’ont pas été autorisées.';
+          return;
+        }
+
+        await inscription.showNotification(
+          'PLAYER 5M 🎾',
+          {
+            body: 'Les notifications Player 5M sont activées !',
+            data: {
+              url: './notifications.html'
+            }
+          }
+        );
+
+        message.innerHTML =
+          '✅ Notifications activées avec succès !';
+
+      } catch (erreur) {
+
+        message.innerHTML =
+          '❌ Une erreur est survenue : ' + erreur.message;
+
+      }
+    }
+
+  </script>
+
+</body>
+</html>
