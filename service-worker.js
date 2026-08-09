@@ -7,28 +7,41 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('push', function(event) {
-  let donnees = {
-    titre: 'PLAYER 5M',
-    message: 'Un nouvel événement est disponible ! 🎾'
-  };
+
+  let donnees = {};
 
   if (event.data) {
     try {
       donnees = event.data.json();
     } catch (e) {
-      donnees.message = event.data.text();
+      donnees = {};
     }
   }
 
+  const titre =
+    donnees.titre ||
+    (donnees.notification && donnees.notification.title) ||
+    'PLAYER 5M';
+
+  const message =
+    donnees.message ||
+    (donnees.notification && donnees.notification.body) ||
+    'Un nouvel événement est disponible ! 🎾';
+
+  const url =
+    donnees.url ||
+    (donnees.data && donnees.data.url) ||
+    './notifications.html';
+
   event.waitUntil(
     self.registration.showNotification(
-      donnees.titre || 'PLAYER 5M',
+      titre,
       {
-        body: donnees.message || 'Un nouvel événement est disponible ! 🎾',
+        body: message,
         icon: './icon-192.png',
         badge: './icon-192.png',
         data: {
-          url: donnees.url || './notifications.html'
+          url: url
         }
       }
     )
@@ -36,6 +49,7 @@ self.addEventListener('push', function(event) {
 });
 
 self.addEventListener('notificationclick', function(event) {
+
   event.notification.close();
 
   const url =
