@@ -90,7 +90,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
-    async function activerNotifications() {
+   window.activerNotifications = async function() {
 
       const message = document.getElementById('message');
 
