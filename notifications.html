@@ -70,7 +70,25 @@
 
   </div>
 
-  <script>
+  <script type="module">
+
+    import { initializeApp }
+  from "https://www.gstatic.com/firebasejs/12.7.1/firebase-app.js";
+
+import { getMessaging, getToken }
+  from "https://www.gstatic.com/firebasejs/12.7.1/firebase-messaging.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA9PKABiwXGkNGewLAF062ZOSxGxOHT-go",
+  authDomain: "player-5m-fidelite.firebaseapp.com",
+  projectId: "player-5m-fidelite",
+  storageBucket: "player-5m-fidelite.firebasestorage.app",
+  messagingSenderId: "69568689388",
+  appId: "1:69568689388:web:05093db16c79e1966221c9"
+};
+
+const app = initializeApp(firebaseConfig);
+const messaging = getMessaging(app);
 
     async function activerNotifications() {
 
@@ -86,7 +104,7 @@
 
         const inscription =
           await navigator.serviceWorker.register('./service-worker.js');
-
+  
         const autorisation =
           await Notification.requestPermission();
 
@@ -95,6 +113,14 @@
             '❌ Les notifications n’ont pas été autorisées.';
           return;
         }
+
+        const token = await getToken(messaging, {
+  vapidKey: "BMEwUrtWxL0Jkbb4wm2jexd-p4IarwqU8FdwwGX6kIOmHQboa8xDsJN7vSm-YWWfg9Tr4km0DAt8N0O-utU167A",
+  serviceWorkerRegistration: inscription
+});
+
+console.log("Token Firebase :", token);
+
 
         await inscription.showNotification(
           'PLAYER 5M 🎾',
