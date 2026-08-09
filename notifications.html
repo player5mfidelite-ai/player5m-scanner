@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+      
   <title>Notifications Player 5M</title>
 
   <style>
@@ -120,6 +120,22 @@ const messaging = getMessaging(app);
 });
 
 console.log("Token Firebase :", token);
+       await fetch(
+  'https://script.google.com/macros/s/AKfycbyZHXWM1EiMFAndTdAJtqbY0L_Hw8TH76PTFYMFbHzMHsQf3d-6l-5MND4w7z63VKI/exec',
+  {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: new URLSearchParams({
+      token: token,
+      idClient: '',
+      nom: '',
+      appareil: navigator.userAgent
+    })
+  }
+); 
 
 
         await inscription.showNotification(
