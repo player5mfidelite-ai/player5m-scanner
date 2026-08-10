@@ -1,0 +1,21 @@
+{
+  "name": "Player 5M",
+  "short_name": "Player 5M",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#111111",
+  "description": "Application Player 5M",
+  "icons": [
+    {
+      "src": "icone-player5m.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icone-player5m.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
