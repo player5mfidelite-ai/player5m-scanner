@@ -90,6 +90,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
+   const params = new URLSearchParams(window.location.search);
+
+const idClient =
+  String(params.get('client') || '')
+    .trim()
+    .toUpperCase();
+
+const nomClient =
+  String(params.get('nom') || '')
+    .trim(); 
+
    window.activerNotifications = async function() {
 
       const message = document.getElementById('message');
@@ -124,8 +135,8 @@ console.log("Token Firebase :", token);
   'https://script.google.com/macros/s/AKfycbyZHXWM1EiMFAndTdAJtqbY0L_Hw8TH76PTFYMFbHzMHsQf3d-6l-5MND4w7z63VKI/exec' +
   '?action=enregistrer-notification' +
   '&token=' + encodeURIComponent(token) +
-  '&idClient=' +
-  '&nom=' +
+'&idClient=' + encodeURIComponent(idClient) +
+'&nom=' + encodeURIComponent(nomClient) +
   '&appareil=' + encodeURIComponent(navigator.userAgent);
 
 await fetch(urlEnregistrement, {
