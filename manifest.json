@@ -1,7 +1,7 @@
 {
   "name": "Player 5M",
   "short_name": "Player 5M",
-  "start_url": "./index.html",
+  "start_url": "https://script.google.com/macros/s/AKfycbyZHXWM1EiMFAndTdAJtqbY0L_Hw8TH76PTFYMFbHzMHsQf3d-6l-5MND4w7z63VKI/exec?page=dashboard",
   "display": "standalone",
   "background_color": "#111111",
   "theme_color": "#111111",
