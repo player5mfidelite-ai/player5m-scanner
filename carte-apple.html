@@ -55,11 +55,9 @@
     const params = new URLSearchParams(window.location.search);
     const carte = params.get('carte');
 
-    if (carte) {
-      setTimeout(function() {
-        window.location.replace(carte);
-      }, 800);
-    }
+   if (carte && window.navigator.standalone === true) {
+  window.location.replace(carte);
+}
   </script>
 
 </body>
