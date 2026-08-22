@@ -65,6 +65,11 @@
     </iframe>
   `;
 }
+
+  window.addEventListener("message", function(event) {
+  alert("Message reçu : " + JSON.stringify(event.data));
+});
+    
   </script>
 
 </body>
