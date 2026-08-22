@@ -13,8 +13,8 @@ const firebaseConfig = {
   appId: "1:69568689388:web:05093db16c79e1966221c9"
 };
 
-const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
+let app = null;
+let messaging = null;
 
 const params = new URLSearchParams(window.location.search);
 const carte = params.get("carte") || "";
@@ -110,6 +110,9 @@ async function activerNotificationsApple() {
   }
 
   try {
+
+    app = initializeApp(firebaseConfig);
+messaging = getMessaging(app);
 
     const inscription =
       await navigator.serviceWorker.register("./service-worker.js");
