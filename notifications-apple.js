@@ -95,6 +95,14 @@ async function activerNotificationsApple() {
   const message =
     document.getElementById("message-notifications-apple");
 
+  const autorisation = await Notification.requestPermission();
+
+if (autorisation !== "granted") {
+  message.innerHTML =
+    "❌ Les notifications n’ont pas été autorisées.";
+  return;
+}
+
   if (!("Notification" in window)) {
     message.innerHTML =
       "❌ Notifications non disponibles sur cet iPhone.";
@@ -127,14 +135,6 @@ messaging = getMessaging(app);
     const inscription =
       await navigator.serviceWorker.register("./service-worker.js");
 
-    const autorisation =
-      await Notification.requestPermission();
-
-    if (autorisation !== "granted") {
-      message.innerHTML =
-        "❌ Les notifications n’ont pas été autorisées.";
-      return;
-    }
 
     const token = await getToken(messaging, {
       vapidKey:
