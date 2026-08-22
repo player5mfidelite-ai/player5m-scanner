@@ -179,3 +179,36 @@ window.addEventListener("message", function(event) {
   }
 
 });
+
+window.addEventListener("DOMContentLoaded", function() {
+
+  if (window.navigator.standalone !== true) {
+    return;
+  }
+
+  const bouton = document.createElement("button");
+
+  bouton.id = "bouton-notifications-iphone";
+  bouton.textContent = "🔔 Activer les notifications";
+
+  bouton.style.cssText =
+    "position:fixed;" +
+    "left:20px;" +
+    "right:20px;" +
+    "bottom:25px;" +
+    "z-index:999999;" +
+    "padding:16px;" +
+    "border:0;" +
+    "border-radius:14px;" +
+    "background:#e30620;" +
+    "color:white;" +
+    "font-size:18px;" +
+    "font-weight:bold;";
+
+  bouton.addEventListener("click", function() {
+    afficherBoutonActivation();
+  });
+
+  document.body.appendChild(bouton);
+
+});
