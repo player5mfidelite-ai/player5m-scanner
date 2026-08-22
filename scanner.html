@@ -269,11 +269,11 @@
       message.textContent = 'Client reconnu : ' + id + '. Ouverture…';
 
       const destination =
-        URL_APPS_SCRIPT +
-        '?page=crediter&client=' +
-        encodeURIComponent(id);
+  URL_APPS_SCRIPT +
+  '?action=crediter-direct&client=' +
+  encodeURIComponent(id);
 
-      window.location.href = destination;
+window.location.href = destination;
     }
 
     async function qrCodeDetecte(texteQr) {
