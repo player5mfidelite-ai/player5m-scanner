@@ -54,6 +54,7 @@
 
   <script>
     const params = new URLSearchParams(window.location.search);
+    const clientDirect = params.get("client") || "";
     const carte = params.get('carte');
 
  if (carte && window.navigator.standalone === true) {
