@@ -19,6 +19,8 @@ const carte = params.get("carte") || "";
 
 let idClient = "";
 
+idClient = params.get("client") || idClient;
+
 try {
   const urlCarte = new URL(carte);
   idClient =
