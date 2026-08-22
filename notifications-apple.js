@@ -27,7 +27,7 @@ try {
       .toUpperCase();
 } catch (e) {}
 
-function afficherBoutonActivation() {
+window.afficherBoutonActivation = function() {
 
   let panneau = document.getElementById("activation-notifications-apple");
 
