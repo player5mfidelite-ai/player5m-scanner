@@ -1,8 +1,6 @@
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-
-import { getMessaging, getToken }
-from "https://www.gstatic.com/firebasejs/12.17.1/firebase-messaging.js";
+let initializeApp;
+let getMessaging;
+let getToken;
 
 const firebaseConfig = {
   apiKey: "AIzaSyA9PKABiwXGkNGewLAFO62ZOSxGxOHT-go",
@@ -110,6 +108,18 @@ async function activerNotificationsApple() {
   }
 
   try {
+
+   const firebaseAppModule = await import(
+  "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js"
+);
+
+const firebaseMessagingModule = await import(
+  "https://www.gstatic.com/firebasejs/12.17.1/firebase-messaging.js"
+);
+
+initializeApp = firebaseAppModule.initializeApp;
+getMessaging = firebaseMessagingModule.getMessaging;
+getToken = firebaseMessagingModule.getToken; 
 
     app = initializeApp(firebaseConfig);
 messaging = getMessaging(app);
