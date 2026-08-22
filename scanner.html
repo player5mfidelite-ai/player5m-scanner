@@ -437,9 +437,10 @@ window.location.href = destination;
     });
 
     window.addEventListener('load', function() {
-      demarrerScanner();
-    });
-
+  setTimeout(function() {
+    demarrerScanner();
+  }, 1200);
+});
     window.addEventListener('beforeunload', function() {
       if (scannerActif && scanner) {
         scanner.stop().catch(function() {});
