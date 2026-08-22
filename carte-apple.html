@@ -55,7 +55,12 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const clientDirect = params.get("client") || "";
-    const carte = params.get('carte');
+    const carte =
+  params.get('carte') ||
+  (
+    'https://script.google.com/macros/s/AKfycbyZHXWM1EiMFAndTdAJtqbY0L_Hw8TH76PTFYMFbHzMHsQf3d-6l-5MND4w7z63VKI/exec?client=' +
+    encodeURIComponent(clientDirect)
+  );
 
  if (carte && window.navigator.standalone === true) {
   document.body.innerHTML = `
