@@ -436,11 +436,14 @@ window.location.href = destination;
       }
     });
 
-    window.addEventListener('load', function() {
+   window.addEventListener('pageshow', function() {
   setTimeout(function() {
+    scannerActif = false;
+    scanner = null;
     demarrerScanner();
-  }, 1200);
+  }, 2000);
 });
+    
     window.addEventListener('beforeunload', function() {
       if (scannerActif && scanner) {
         scanner.stop().catch(function() {});
