@@ -182,9 +182,13 @@ window.addEventListener("message", function(event) {
 
 window.addEventListener("DOMContentLoaded", function() {
 
-  if (window.navigator.standalone !== true) {
-    return;
-  }
+ const estApplication =
+  window.navigator.standalone === true ||
+  window.matchMedia('(display-mode: standalone)').matches;
+
+if (!estApplication) {
+  return;
+}
 
   const bouton = document.createElement("button");
 
