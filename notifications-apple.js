@@ -32,7 +32,6 @@ try {
 window.afficherBoutonActivation = function() {
 
     const estApplication =
-    window.navigator.standalone === true ||
     window.matchMedia("(display-mode: standalone)").matches;
 
   if (!estApplication) {
@@ -216,7 +215,6 @@ window.addEventListener("message", function(event) {
 window.addEventListener("DOMContentLoaded", function() {
 
  const estApplication =
-  window.navigator.standalone === true ||
   window.matchMedia('(display-mode: standalone)').matches;
 
 if (
