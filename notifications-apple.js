@@ -32,7 +32,8 @@ try {
 window.afficherBoutonActivation = function() {
 
     const estApplication =
-    window.matchMedia("(display-mode: standalone)").matches;
+  window.navigator.standalone === true ||
+  window.matchMedia("(display-mode: standalone)").matches;
 
   if (!estApplication) {
     return;
