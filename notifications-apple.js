@@ -31,6 +31,13 @@ try {
 
 window.afficherBoutonActivation = function() {
 
+    if (
+    "Notification" in window &&
+    Notification.permission === "granted"
+  ) {
+    return;
+  }
+
   let panneau = document.getElementById("activation-notifications-apple");
 
   if (!panneau) {
@@ -164,6 +171,22 @@ messaging = getMessaging(app);
     message.innerHTML =
       "✅ Notifications activées avec succès !";
 
+  setTimeout(function() {
+  const panneau =
+    document.getElementById("activation-notifications-apple");
+
+  if (panneau) {
+    panneau.style.display = "none";
+  }
+
+  const bouton =
+    document.getElementById("bouton-notifications-iphone");
+
+  if (bouton) {
+    bouton.remove();
+  }
+}, 1500);  
+
   } catch (erreur) {
 
     message.innerHTML =
@@ -188,7 +211,10 @@ window.addEventListener("DOMContentLoaded", function() {
   window.navigator.standalone === true ||
   window.matchMedia('(display-mode: standalone)').matches;
 
-if (!estApplication) {
+if (
+  !estApplication ||
+  Notification.permission === "granted"
+) {
   return;
 }
 
