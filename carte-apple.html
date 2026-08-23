@@ -71,6 +71,36 @@
     </iframe>
 
   `;
+
+const estApplicationInstallee =
+  window.navigator.standalone === true ||
+  window.matchMedia("(display-mode: standalone)").matches;
+
+if (!estApplicationInstallee) {
+  const aideInstallation = document.createElement("div");
+
+  aideInstallation.style.cssText =
+    "position:fixed;left:18px;right:18px;bottom:90px;" +
+    "z-index:999999;background:#1d1d1d;color:white;" +
+    "border:2px solid #e30620;border-radius:18px;" +
+    "padding:18px;text-align:center;font-family:Arial,sans-serif;" +
+    "box-shadow:0 8px 30px rgba(0,0,0,.65);";
+
+  aideInstallation.innerHTML = `
+    <div style="font-size:21px;font-weight:bold;color:#ffcc00;">
+      ✅ Votre carte est prête !
+    </div>
+
+    <div style="margin-top:10px;font-size:17px;line-height:1.45;">
+      Appuyez maintenant sur <strong>Partager</strong> ⬆️<br>
+      puis choisissez <strong>« Sur l’écran d’accueil »</strong><br>
+      et appuyez sur <strong>Ajouter</strong>.
+    </div>
+  `;
+
+  document.body.appendChild(aideInstallation);
+}
+   
     window.addEventListener("DOMContentLoaded", function() {
       window.afficherBoutonActivation();
     });
