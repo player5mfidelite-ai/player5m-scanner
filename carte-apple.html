@@ -62,7 +62,7 @@
     encodeURIComponent(clientDirect)
   );
 
- if (carte && window.navigator.standalone === true) {
+ if (carte) {
   document.body.innerHTML = `
     <iframe
       src="${carte}"
