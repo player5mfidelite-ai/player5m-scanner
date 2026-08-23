@@ -31,6 +31,14 @@ try {
 
 window.afficherBoutonActivation = function() {
 
+    const estApplication =
+    window.navigator.standalone === true ||
+    window.matchMedia("(display-mode: standalone)").matches;
+
+  if (!estApplication) {
+    return;
+  }
+
     if (
     "Notification" in window &&
     Notification.permission === "granted"
