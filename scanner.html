@@ -429,12 +429,10 @@ window.location.href = destination;
       }
     });
 
-   window.addEventListener('pageshow', function() {
-  setTimeout(function() {
-    scannerActif = false;
-    scanner = null;
-    demarrerScanner();
-  }, 2000);
+  window.addEventListener('pageshow', function(event) {
+  if (event.persisted) {
+    window.location.reload();
+  }
 });
     
     window.addEventListener('beforeunload', function() {
