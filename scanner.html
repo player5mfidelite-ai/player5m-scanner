@@ -265,6 +265,16 @@
     const sessionAdmin =
   new URLSearchParams(window.location.search).get('session') || '';
 
+   const retourAdministration =
+  document.getElementById('retourAdministration');
+
+if (retourAdministration && sessionAdmin) {
+  retourAdministration.href =
+    URL_APPS_SCRIPT +
+    '?page=dashboard&session=' +
+    encodeURIComponent(sessionAdmin);
+} 
+
     let scanner = null;
     let scannerActif = false;
     let lectureEnCours = false;
