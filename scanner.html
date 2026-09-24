@@ -261,6 +261,9 @@
     const URL_APPS_SCRIPT =
       'https://script.google.com/macros/s/AKfycbyZHXWM1EiMFAndTdAJtqbY0L_Hw8TH76PTFYMFbHzMHsQf3d-6l-5MND4w7z63VKI/exec';
 
+    const sessionAdmin =
+  new URLSearchParams(window.location.search).get('session') || '';
+
     let scanner = null;
     let scannerActif = false;
     let lectureEnCours = false;
@@ -304,10 +307,12 @@
       message.className = 'succes';
       message.textContent = 'Client reconnu : ' + id + '. Ouverture…';
 
-      const destination =
+     const destination =
   URL_APPS_SCRIPT +
   '?action=crediter-direct&client=' +
-  encodeURIComponent(id);
+  encodeURIComponent(id) +
+  '&session=' +
+  encodeURIComponent(sessionAdmin);
 
 window.location.href = destination;
     }
